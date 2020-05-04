@@ -1,7 +1,7 @@
 //binh  
 $(document).ready(function () {
 
-    var api_url = 'http://203.113.174.16:9090/'
+    var api_url = 'https://203.113.174.16:9090/'
 
 
     //hàm kiểm tra
@@ -16,7 +16,7 @@ $(document).ready(function () {
         //         console.log(result);
         //     }
         // })
-        fetch('http://203.113.174.16:9090/api/BV_KhaibaoYTe/GetBySoDT?SoDT=' + $("#sdt")[0].value)
+        fetch('https://203.113.174.16:9090/api/BV_KhaibaoYTe/GetBySoDT?SoDT=' + $("#sdt")[0].value)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
         //post request
 console.log(getform())
-        fetch('http://203.113.174.16:9090/api/BV_KhaibaoYTe/SaveOrUpdate', {
+        fetch('https://203.113.174.16:9090/api/BV_KhaibaoYTe/SaveOrUpdate', {
             method: 'post',
             mode: 'cors',
             headers: {
