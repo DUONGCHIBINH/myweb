@@ -38,7 +38,7 @@ $(document).ready(function () {
 
         //post request
 console.log(getform())
-        fetch('https://203.113.174.16:9090/api/BV_KhaibaoYTe/SaveOrUpdate', {
+        fetch('http://203.113.174.16:9090/api/BV_KhaibaoYTe/SaveOrUpdate', {
             method: 'post',
             mode: 'cors',
             headers: {
