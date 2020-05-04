@@ -16,7 +16,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+    <script src="qrcode.min.js"></script>
     <style>
         body {
             background: white url(dot.png) no-repeat;
@@ -38,7 +40,7 @@
     </style>
 </head>
 
-<body >
+<body>
     <div class="container" style="padding: 0cm;">
         <div class="row" style=" display: flex;
         justify-content: center;">
@@ -49,7 +51,7 @@
             <div class="col" style=" display: flex;
             justify-content: center;">
                 <div class="card-body" style=" max-width: 500px;">
-                   
+
                     <h2 class="text-center" style="color:#1f5da8"> <b>KHAI BÁO Y TẾ</b> </h2><br>
                     <form>
                         <div class="form-group">
@@ -61,7 +63,8 @@
                                 </div>
                                 <div class="col-5">
 
-                                    <button type="button" class="btn btn-success btn-block">Kiểm tra</button>
+                                    <button id="btCheck" type="button" class="btn btn-success btn-block">Kiểm
+                                        tra</button>
                                 </div>
                             </div>
 
@@ -80,151 +83,180 @@
                             <input type="text" class="form-control" id="address" placeholder="Địa chỉ">
                         </div>
 
+                        <form>
+                            <div class="form-group">
+                                <label class="form-check-label" for="inlineRadio1" style="margin-right: 20px;">Giới tính
+                                </label>
 
-                        <div class="form-group">
-                            <label class="form-check-label" for="inlineRadio1" style="margin-right: 20px;">Giới tính
-                            </label>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam"
+                                        value="nam">
+                                    <label class="form-check-label" for="nam">Nam</label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu"
+                                        value="nu">
+                                    <label class="form-check-label" for="nu">Nữ</label>
+                                </div>
+                            </div>
+                        </form>
 
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam"
-                                    value="nam">
-                                <label class="form-check-label" for="nam">Nam</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu"
-                                    value="nu">
-                                <label class="form-check-label" for="nu">Nữ</label>
-                            </div>
-                        </div>
 
 
                         <!-- cau 11111 -->
                         <div class="form-group">
                             <label><b>1. Anh/Chị đang có các triệu chứng nào sau đây </b> </label>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1a">
+                                <input class="form-check-input" type="checkbox" value="Sốt" id="1a">
                                 <label class="form-check-label" for="1a">
                                     Sốt
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1b">
+                                <input class="form-check-input" type="checkbox" value="Ho" id="1b">
                                 <label class="form-check-label" for="1b">
                                     Ho
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1c">
+                                <input class="form-check-input" type="checkbox" value="Đau họng" id="1c">
                                 <label class="form-check-label" for="1c">
                                     Đau họng
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1d">
+                                <input class="form-check-input" type="checkbox" value="Khó thở" id="1d">
                                 <label class="form-check-label" for="1d">
                                     Khó thở
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1e">
+                                <input class="form-check-input" type="checkbox" value="Mất mùi" id="1e">
                                 <label class="form-check-label" for="1e">
                                     Mất mùi
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="1f">
+                                <input class="form-check-input" type="checkbox" value="Không có các triệu chứng trên"
+                                    id="1f">
                                 <label class="form-check-label" for="1f">
                                     Không có các triệu chứng trên
                                 </label>
                             </div>
                         </div>
                         <!-- cau 2 -->
-                        <div class="form-group">
-                            <label><b>2. Anh/Chị có tiếp xúc với người được xác định nhiễm COVID-19 (F0) hay không? (Nếu
-                                    có thì
-                                    Anh/Chị là F1) </b> </label>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="2a"
-                                    value="nu">
-                                <label class="form-check-label" for="2a">Có </label>
+                        <form>
+                            <div class="form-group">
+                                <label><b>2. Anh/Chị có tiếp xúc với người được xác định nhiễm COVID-19 (F0) hay không?
+                                        (Nếu
+                                        có thì
+                                        Anh/Chị là F1) </b> </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="2a">
+                                    <label class="form-check-label" for="2a">Có </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="2b">
+                                    <label class="form-check-label" for="2b">Không</label>
+                                </div>
                             </div>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="2b"
-                                    value="nu">
-                                <label class="form-check-label" for="2b">Không</label>
-                            </div>
-                        </div>
+                        </form>
 
-                        <!-- cau 3 -->
-                        <div class="form-group">
-                            <label><b>3. Anh/Chị có từng tiếp xúc với người nghi ngờ mắc bệnh COVID-19 hoặc với người
-                                    tiếp xúc gần với người mắc bệnh COVID-19 hay không? (Nếu có thì Anh/Chị là F2) </b>
-                            </label>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="3a"
-                                    value="nu">
-                                <label class="form-check-label" for="3a">Có </label>
+                        <form>
+                            <!-- cau 3 -->
+                            <div class="form-group">
+                                <label><b>3. Anh/Chị có từng tiếp xúc với người nghi ngờ mắc bệnh COVID-19 hoặc với
+                                        người
+                                        tiếp xúc gần với người mắc bệnh COVID-19 hay không? (Nếu có thì Anh/Chị là F2)
+                                    </b>
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="3a"
+                                        value="nu">
+                                    <label class="form-check-label" for="3a">Có </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="3b"
+                                        value="nu">
+                                    <label class="form-check-label" for="3b">Không</label>
+                                </div>
                             </div>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="3b"
-                                    value="nu">
-                                <label class="form-check-label" for="3b">Không</label>
-                            </div>
-                        </div>
 
-
-
-                        <!-- cau 4 -->
-                        <div class="form-group">
-                            <label><b>4. Anh/Chị có từng tiếp xúc với NGƯỜI ĐÃ XÁC ĐỊNH LÀ F2 hay không?(Nếu có thì
-                                    Anh/Chị là F3) </b> </label>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="4a"
-                                    value="nu">
-                                <label class="form-check-label" for="4a">Có </label>
-                            </div>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="4b"
-                                    value="nu">
-                                <label class="form-check-label" for="4b">Không</label>
-                            </div>
-                        </div>
+                        </form>
 
 
-                        <!-- cau 5 -->
-                        <div class="form-group">
-                            <label><b>5. Gần đây Anh/Chị có đi đến và trở về từ nước ngoài hay không? </b> </label>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="5a"
-                                    value="nu">
-                                <label class="form-check-label" for="5a">Có </label>
+                        <form>
+                            <!-- cau 4 -->
+                            <div class="form-group">
+                                <label><b>4. Anh/Chị có từng tiếp xúc với NGƯỜI ĐÃ XÁC ĐỊNH LÀ F2 hay không?(Nếu có thì
+                                        Anh/Chị là F3) </b> </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="4a"
+                                        value="nu">
+                                    <label class="form-check-label" for="4a">Có </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="4b"
+                                        value="nu">
+                                    <label class="form-check-label" for="4b">Không</label>
+                                </div>
                             </div>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="5b"
-                                    value="nu">
-                                <label class="form-check-label" for="5b">Không</label>
-                            </div>
-                        </div>
+                        </form>
 
 
-                        <!-- cau 6 -->
-                        <div class="form-group">
-                            <label><b>6. Gần đây Anh/Chị có đi đến và trở về từ các tỉnh, thành phố, khu vực trong nước
-                                    đang có ca nhiễm dịch bệnh COVID-19 hoặc cư trú gần khu vực cách ly không? </b>
-                            </label>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="6a"
-                                    value="nu">
-                                <label class="form-check-label" for="6a">Có </label>
-                            </div>
-                            <div class="form-check form-check">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="6b"
-                                    value="nu">
-                                <label class="form-check-label" for="6b">Không</label>
-                            </div>
-                        </div>
+                        <form>
+                            <!-- cau 5 -->
+                            <div class="form-group">
+                                <label><b>5. Gần đây Anh/Chị có đi đến và trở về từ nước ngoài hay không? </b> </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="5a"
+                                        value="nu">
+                                    <label class="form-check-label" for="5a">Không </label>
+                                </div>
 
-                        <button type="submit" class="btn btn-primary  btn-block">KHAI BÁO</button>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="5b"
+                                        value="nu">
+                                    <label class="form-check-label" for="5b">Có (Ghi rõ tên quốc gia và ngày đến Việt
+                                        Nam ở
+                                        dòng "Khác")</label>
+                                </div>
+                                <div class="form-group">
+                                    Mục khác: <input type="text" class="form-control" id="nuocngoaikhac"
+                                        placeholder="Quốc gia">
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <form>
+                            <!-- cau 6 -->
+                            <div class="form-group">
+                                <label><b>6. Gần đây Anh/Chị có đi đến và trở về từ các tỉnh, thành phố, khu vực trong
+                                        nước
+                                        đang có ca nhiễm dịch bệnh COVID-19 hoặc cư trú gần khu vực cách ly không? </b>
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="6a"
+                                        value="nu">
+                                    <label class="form-check-label" for="6a">Không </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="6b"
+                                        value="nu">
+                                    <label class="form-check-label" for="6b">Có (Ghi rõ tên khu vực và ngày trở về ở
+                                        dòng
+                                        "Khác")</label>
+                                </div>
+                                <div class="form-group">
+                                    Mục khác: <input type="text" class="form-control" id="vungdichkhac"
+                                        placeholder="Khu vực">
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <button id="btKhaibao" type="button" class="btn btn-primary  btn-block">KHAI BÁO</button>
                     </form>
                 </div>
 
@@ -236,6 +268,7 @@
 
     </div>
     <div style="margin-bottom: 30px;"> </div>
+
 
 </body>
 
